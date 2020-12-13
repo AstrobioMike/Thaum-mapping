@@ -1,2 +1,2 @@
 # Thaum-mapping
-Collaboration with Nathan Ahlgren
+Collaboration with Ahlgren lab
