@@ -1,0 +1,1735 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	7	dl_454_sample_and_run_mapping
+	188	dl_sample_and_run_mapping
+	32	dl_sample_and_run_mapping_HK_samples
+	7	parse_454_gene_level_cov_and_det
+	300	parse_gene_level_cov_and_det
+	54	parse_gene_level_cov_and_det_HK_samples
+	589
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/UW056-33An.bam
+    jobid: 412
+    wildcards: ID=UW056-33An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^UW056-33An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^UW056-33An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 UW056-33An "${R1_link}" "${R2_link}"
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/BB08-300m-8Ar.bam
+    jobid: 377
+    wildcards: ID=BB08-300m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^BB08-300m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^BB08-300m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 BB08-300m-8Ar "${R1_link}" "${R2_link}"
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD20-20.bam
+    jobid: 85
+    wildcards: ID=OSD20-20
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD20-20" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD20-20 ${curr_run_accs}
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_058_66m_0.22-3_prok.bam
+    jobid: 197
+    wildcards: ID=TARA_058_66m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_058_66m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_058_66m_0.22-3_prok ${curr_run_accs}
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_122_600m_0.22-0.45_girus.bam
+    jobid: 267
+    wildcards: ID=TARA_122_600m_0.22-0.45_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_122_600m_0.22-0.45_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_122_600m_0.22-0.45_girus ${curr_run_accs}
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD149.bam
+    jobid: 44
+    wildcards: ID=OSD149
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD149" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD149 ${curr_run_accs}
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD21.bam
+    jobid: 86
+    wildcards: ID=OSD21
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD21" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD21 ${curr_run_accs}
+        
+
+[Tue Dec  1 00:02:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_122_600m_0.45-0.8_girus.bam
+    jobid: 268
+    wildcards: ID=TARA_122_600m_0.45-0.8_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_122_600m_0.45-0.8_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_122_600m_0.45-0.8_girus ${curr_run_accs}
+        
+[Tue Dec  1 00:03:05 2020]
+Finished job 86.
+1 of 589 steps (0.17%) done
+
+[Tue Dec  1 00:03:05 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/LB01-1000m-8Ar.bam
+    jobid: 385
+    wildcards: ID=LB01-1000m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^LB01-1000m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^LB01-1000m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 LB01-1000m-8Ar "${R1_link}" "${R2_link}"
+        
+[Tue Dec  1 00:03:14 2020]
+Finished job 44.
+2 of 589 steps (0.34%) done
+
+[Tue Dec  1 00:03:14 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_132_115m_0.22-3_prok.bam
+    jobid: 288
+    wildcards: ID=TARA_132_115m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_132_115m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_132_115m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 00:03:35 2020]
+Finished job 85.
+3 of 589 steps (0.51%) done
+
+[Tue Dec  1 00:03:35 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/LB01-300m-8Ar.bam
+    jobid: 386
+    wildcards: ID=LB01-300m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^LB01-300m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^LB01-300m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 LB01-300m-8Ar "${R1_link}" "${R2_link}"
+        
+[Tue Dec  1 00:26:47 2020]
+Finished job 386.
+4 of 589 steps (0.68%) done
+
+[Tue Dec  1 00:26:48 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_132_550m_0.22-3_prok.bam
+    jobid: 289
+    wildcards: ID=TARA_132_550m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_132_550m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_132_550m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 00:28:24 2020]
+Finished job 385.
+5 of 589 steps (0.85%) done
+
+[Tue Dec  1 00:28:24 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/LB01-5m-8Ar.bam
+    jobid: 387
+    wildcards: ID=LB01-5m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^LB01-5m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^LB01-5m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 LB01-5m-8Ar "${R1_link}" "${R2_link}"
+        
+[Tue Dec  1 00:29:24 2020]
+Finished job 377.
+6 of 589 steps (1%) done
+
+[Tue Dec  1 00:29:24 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_067_5m_0.45-0.8_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-coverages.tsv
+    jobid: 626
+    wildcards: ID=TARA_067_5m_0.45-0.8_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_067_5m_0.45-0.8_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-cov.tmp > ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-cov-and-det.tmp ../mapping-files/TARA_067_5m_0.45-0.8_girus-gene-cov.tmp
+        
+[Tue Dec  1 00:29:35 2020]
+Finished job 626.
+7 of 589 steps (1%) done
+
+[Tue Dec  1 00:29:35 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_133_45m_0.22-3_prok.bam
+    jobid: 291
+    wildcards: ID=TARA_133_45m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_133_45m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_133_45m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 00:29:54 2020]
+Finished job 412.
+8 of 589 steps (1%) done
+
+[Tue Dec  1 00:29:54 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/N02-1500m-8Ar.bam
+    jobid: 389
+    wildcards: ID=N02-1500m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^N02-1500m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^N02-1500m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 N02-1500m-8Ar "${R1_link}" "${R2_link}"
+        
+[Tue Dec  1 00:47:21 2020]
+Finished job 387.
+9 of 589 steps (2%) done
+
+[Tue Dec  1 00:47:22 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_068_50m_0.22-0.45_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-coverages.tsv
+    jobid: 627
+    wildcards: ID=TARA_068_50m_0.22-0.45_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_068_50m_0.22-0.45_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-cov.tmp > ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-cov-and-det.tmp ../mapping-files/TARA_068_50m_0.22-0.45_girus-gene-cov.tmp
+        
+[Tue Dec  1 00:47:30 2020]
+Finished job 389.
+10 of 589 steps (2%) done
+
+[Tue Dec  1 00:47:30 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_133_5m_0.22-3_prok.bam
+    jobid: 292
+    wildcards: ID=TARA_133_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_133_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_133_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 00:47:58 2020]
+Finished job 627.
+11 of 589 steps (2%) done
+
+[Tue Dec  1 00:47:58 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD37.bam
+    jobid: 98
+    wildcards: ID=OSD37
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD37" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD37 ${curr_run_accs}
+        
+[Tue Dec  1 00:50:00 2020]
+Finished job 98.
+12 of 589 steps (2%) done
+
+[Tue Dec  1 00:50:01 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_205_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_205_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 755
+    wildcards: ID=TARA_205_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_205_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_205_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_205_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_205_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_205_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_205_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_205_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_205_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 00:50:07 2020]
+Finished job 755.
+13 of 589 steps (2%) done
+
+[Tue Dec  1 00:50:07 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_004_5m_0.22-1.6_prok.bam
+    jobid: 154
+    wildcards: ID=TARA_004_5m_0.22-1.6_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_004_5m_0.22-1.6_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_004_5m_0.22-1.6_prok ${curr_run_accs}
+        
+[Tue Dec  1 02:17:22 2020]
+Finished job 268.
+14 of 589 steps (2%) done
+
+[Tue Dec  1 02:17:23 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_125_5m_0.45-0.8_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-coverages.tsv
+    jobid: 699
+    wildcards: ID=TARA_125_5m_0.45-0.8_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_125_5m_0.45-0.8_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-cov.tmp > ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-cov-and-det.tmp ../mapping-files/TARA_125_5m_0.45-0.8_girus-gene-cov.tmp
+        
+[Tue Dec  1 02:17:37 2020]
+Finished job 699.
+15 of 589 steps (3%) done
+
+[Tue Dec  1 02:17:37 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_196_5m_0.22-3_prok.bam
+    jobid: 336
+    wildcards: ID=TARA_196_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_196_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_196_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 02:24:01 2020]
+Finished job 154.
+16 of 589 steps (3%) done
+
+[Tue Dec  1 02:24:01 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD116.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD116-gene-coverages.tsv
+    jobid: 433
+    wildcards: ID=OSD116
+
+
+        pileup.sh -in ../mapping-files/OSD116.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD116-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD116-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD116-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD116-gene-cov.tmp > ../mapping-files/OSD116-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD116-gene-cov-and-det.tmp ../mapping-files/OSD116-gene-cov.tmp
+        
+[Tue Dec  1 02:24:07 2020]
+Finished job 433.
+17 of 589 steps (3%) done
+
+[Tue Dec  1 02:24:07 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD117.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD117-gene-coverages.tsv
+    jobid: 434
+    wildcards: ID=OSD117
+
+
+        pileup.sh -in ../mapping-files/OSD117.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD117-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD117-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD117-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD117-gene-cov.tmp > ../mapping-files/OSD117-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD117-gene-cov-and-det.tmp ../mapping-files/OSD117-gene-cov.tmp
+        
+[Tue Dec  1 02:24:13 2020]
+Finished job 434.
+18 of 589 steps (3%) done
+
+[Tue Dec  1 02:24:13 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_078_800m_0.45-0.8_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-coverages.tsv
+    jobid: 657
+    wildcards: ID=TARA_078_800m_0.45-0.8_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_078_800m_0.45-0.8_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-cov.tmp > ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-cov-and-det.tmp ../mapping-files/TARA_078_800m_0.45-0.8_girus-gene-cov.tmp
+        
+[Tue Dec  1 02:24:36 2020]
+Finished job 657.
+19 of 589 steps (3%) done
+
+[Tue Dec  1 02:24:36 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_128_40m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_128_40m_0.22-3_prok-gene-coverages.tsv
+    jobid: 700
+    wildcards: ID=TARA_128_40m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_128_40m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_128_40m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_128_40m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_128_40m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_128_40m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_128_40m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_128_40m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_128_40m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 02:24:46 2020]
+Finished job 700.
+20 of 589 steps (3%) done
+
+[Tue Dec  1 02:24:46 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_206_411m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_206_411m_0.22-3_prok-gene-coverages.tsv
+    jobid: 756
+    wildcards: ID=TARA_206_411m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_206_411m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_206_411m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_206_411m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_206_411m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_206_411m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_206_411m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_206_411m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_206_411m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 02:25:28 2020]
+Finished job 756.
+21 of 589 steps (4%) done
+
+[Tue Dec  1 02:25:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD38.bam
+    jobid: 99
+    wildcards: ID=OSD38
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD38" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD38 ${curr_run_accs}
+        
+[Tue Dec  1 02:27:09 2020]
+Finished job 99.
+22 of 589 steps (4%) done
+
+[Tue Dec  1 02:27:09 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_194_5m_0.22-3_prok.bam
+    jobid: 335
+    wildcards: ID=TARA_194_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_194_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_194_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 02:31:10 2020]
+Finished job 197.
+23 of 589 steps (4%) done
+
+[Tue Dec  1 02:31:10 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_004_40m_0.22-1.6_prok.bam
+    jobid: 153
+    wildcards: ID=TARA_004_40m_0.22-1.6_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_004_40m_0.22-1.6_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_004_40m_0.22-1.6_prok ${curr_run_accs}
+        
+[Tue Dec  1 03:10:45 2020]
+Finished job 267.
+24 of 589 steps (4%) done
+
+[Tue Dec  1 03:10:46 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD36.bam
+    jobid: 97
+    wildcards: ID=OSD36
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD36" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD36 ${curr_run_accs}
+        
+[Tue Dec  1 03:12:39 2020]
+Finished job 97.
+25 of 589 steps (4%) done
+
+[Tue Dec  1 03:12:39 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD115.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD115-gene-coverages.tsv
+    jobid: 432
+    wildcards: ID=OSD115
+
+
+        pileup.sh -in ../mapping-files/OSD115.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD115-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD115-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD115-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD115-gene-cov.tmp > ../mapping-files/OSD115-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD115-gene-cov-and-det.tmp ../mapping-files/OSD115-gene-cov.tmp
+        
+[Tue Dec  1 03:12:45 2020]
+Finished job 432.
+26 of 589 steps (4%) done
+
+[Tue Dec  1 03:12:45 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_194_35m_0.22-3_prok.bam
+    jobid: 334
+    wildcards: ID=TARA_194_35m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_194_35m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_194_35m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 03:21:10 2020]
+Finished job 291.
+27 of 589 steps (5%) done
+
+[Tue Dec  1 03:21:11 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_003_5m_0.22-1.6_girus.bam
+    jobid: 152
+    wildcards: ID=TARA_003_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_003_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_003_5m_0.22-1.6_girus ${curr_run_accs}
+        
+[Tue Dec  1 03:21:24 2020]
+Finished job 152.
+28 of 589 steps (5%) done
+
+[Tue Dec  1 03:21:24 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD35.bam
+    jobid: 96
+    wildcards: ID=OSD35
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD35" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD35 ${curr_run_accs}
+        
+[Tue Dec  1 03:23:22 2020]
+Finished job 96.
+29 of 589 steps (5%) done
+
+[Tue Dec  1 03:23:23 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_125_5m_0.1-0.22_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-coverages.tsv
+    jobid: 697
+    wildcards: ID=TARA_125_5m_0.1-0.22_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_125_5m_0.1-0.22_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-cov.tmp > ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-cov-and-det.tmp ../mapping-files/TARA_125_5m_0.1-0.22_girus-gene-cov.tmp
+        
+[Tue Dec  1 03:23:34 2020]
+Finished job 697.
+30 of 589 steps (5%) done
+
+[Tue Dec  1 03:23:34 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_007_42m_0.22-1.6_girus.bam
+    jobid: 155
+    wildcards: ID=TARA_007_42m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_007_42m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_007_42m_0.22-1.6_girus ${curr_run_accs}
+        
+[Tue Dec  1 03:42:51 2020]
+Finished job 153.
+31 of 589 steps (5%) done
+
+[Tue Dec  1 03:42:51 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_193_5m_0.22-3_prok.bam
+    jobid: 333
+    wildcards: ID=TARA_193_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_193_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_193_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 03:55:17 2020]
+Finished job 155.
+32 of 589 steps (5%) done
+
+[Tue Dec  1 03:55:18 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD99.bam
+    jobid: 151
+    wildcards: ID=OSD99
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD99" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD99 ${curr_run_accs}
+        
+[Tue Dec  1 03:56:32 2020]
+Finished job 151.
+33 of 589 steps (6%) done
+
+[Tue Dec  1 03:56:32 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD34.bam
+    jobid: 95
+    wildcards: ID=OSD34
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD34" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD34 ${curr_run_accs}
+        
+[Tue Dec  1 03:58:12 2020]
+Finished job 95.
+34 of 589 steps (6%) done
+
+[Tue Dec  1 03:58:12 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD4.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD4-gene-coverages.tsv
+    jobid: 515
+    wildcards: ID=OSD4
+
+
+        pileup.sh -in ../mapping-files/OSD4.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD4-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD4-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD4-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD4-gene-cov.tmp > ../mapping-files/OSD4-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD4-gene-cov-and-det.tmp ../mapping-files/OSD4-gene-cov.tmp
+        
+[Tue Dec  1 03:58:22 2020]
+Finished job 515.
+35 of 589 steps (6%) done
+
+[Tue Dec  1 03:58:22 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_078_5m_0.45-0.8_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-coverages.tsv
+    jobid: 655
+    wildcards: ID=TARA_078_5m_0.45-0.8_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_078_5m_0.45-0.8_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-cov.tmp > ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-cov-and-det.tmp ../mapping-files/TARA_078_5m_0.45-0.8_girus-gene-cov.tmp
+        
+[Tue Dec  1 03:58:28 2020]
+Finished job 655.
+36 of 589 steps (6%) done
+
+[Tue Dec  1 03:58:28 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_201_36m_0.22-3_prok.bam
+    jobid: 337
+    wildcards: ID=TARA_201_36m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_201_36m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_201_36m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 04:19:54 2020]
+Finished job 336.
+37 of 589 steps (6%) done
+
+[Tue Dec  1 04:19:54 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_125_140m_0.45-0.8_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-coverages.tsv
+    jobid: 696
+    wildcards: ID=TARA_125_140m_0.45-0.8_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_125_140m_0.45-0.8_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-cov.tmp > ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-cov-and-det.tmp ../mapping-files/TARA_125_140m_0.45-0.8_girus-gene-cov.tmp
+        
+[Tue Dec  1 04:20:03 2020]
+Finished job 696.
+38 of 589 steps (6%) done
+
+[Tue Dec  1 04:20:03 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_191_5m_0.22-3_prok.bam
+    jobid: 332
+    wildcards: ID=TARA_191_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_191_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_191_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 04:24:17 2020]
+Finished job 288.
+39 of 589 steps (7%) done
+
+[Tue Dec  1 04:24:17 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD118.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD118-gene-coverages.tsv
+    jobid: 435
+    wildcards: ID=OSD118
+
+
+        pileup.sh -in ../mapping-files/OSD118.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD118-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD118-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD118-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD118-gene-cov.tmp > ../mapping-files/OSD118-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD118-gene-cov-and-det.tmp ../mapping-files/OSD118-gene-cov.tmp
+        
+[Tue Dec  1 04:24:23 2020]
+Finished job 435.
+40 of 589 steps (7%) done
+
+[Tue Dec  1 04:24:23 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_093_35m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_093_35m_0.22-3_prok-gene-coverages.tsv
+    jobid: 659
+    wildcards: ID=TARA_093_35m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_093_35m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_093_35m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_093_35m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_093_35m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_093_35m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_093_35m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_093_35m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_093_35m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:24:30 2020]
+Finished job 659.
+41 of 589 steps (7%) done
+
+[Tue Dec  1 04:24:30 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_206_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_206_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 757
+    wildcards: ID=TARA_206_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_206_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_206_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_206_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_206_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_206_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_206_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_206_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_206_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:24:38 2020]
+Finished job 757.
+42 of 589 steps (7%) done
+
+[Tue Dec  1 04:24:38 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD39.bam
+    jobid: 100
+    wildcards: ID=OSD39
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD39" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD39 ${curr_run_accs}
+        
+[Tue Dec  1 04:26:04 2020]
+Finished job 289.
+43 of 589 steps (7%) done
+
+[Tue Dec  1 04:26:04 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_007_5m_0.22-1.6_girus.bam
+    jobid: 156
+    wildcards: ID=TARA_007_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_007_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_007_5m_0.22-1.6_girus ${curr_run_accs}
+        
+[Tue Dec  1 04:26:21 2020]
+Finished job 100.
+44 of 589 steps (7%) done
+
+[Tue Dec  1 04:26:21 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD39.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD39-gene-coverages.tsv
+    jobid: 514
+    wildcards: ID=OSD39
+
+
+        pileup.sh -in ../mapping-files/OSD39.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD39-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD39-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD39-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD39-gene-cov.tmp > ../mapping-files/OSD39-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD39-gene-cov-and-det.tmp ../mapping-files/OSD39-gene-cov.tmp
+        
+[Tue Dec  1 04:26:25 2020]
+Finished job 514.
+45 of 589 steps (8%) done
+
+[Tue Dec  1 04:26:26 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD98.bam
+    jobid: 150
+    wildcards: ID=OSD98
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD98" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD98 ${curr_run_accs}
+        
+[Tue Dec  1 04:27:54 2020]
+Finished job 150.
+46 of 589 steps (8%) done
+
+[Tue Dec  1 04:27:54 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD30.bam
+    jobid: 94
+    wildcards: ID=OSD30
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD30" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD30 ${curr_run_accs}
+        
+[Tue Dec  1 04:29:40 2020]
+Finished job 94.
+47 of 589 steps (8%) done
+
+[Tue Dec  1 04:29:40 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD17.bam
+    jobid: 66
+    wildcards: ID=OSD17
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD17" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD17 ${curr_run_accs}
+        
+[Tue Dec  1 04:31:09 2020]
+Finished job 66.
+48 of 589 steps (8%) done
+
+[Tue Dec  1 04:31:09 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD38.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD38-gene-coverages.tsv
+    jobid: 513
+    wildcards: ID=OSD38
+
+
+        pileup.sh -in ../mapping-files/OSD38.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD38-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD38-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD38-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD38-gene-cov.tmp > ../mapping-files/OSD38-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD38-gene-cov-and-det.tmp ../mapping-files/OSD38-gene-cov.tmp
+        
+[Tue Dec  1 04:31:13 2020]
+Finished job 513.
+49 of 589 steps (8%) done
+
+[Tue Dec  1 04:31:13 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_201_441m_0.22-3_prok.bam
+    jobid: 338
+    wildcards: ID=TARA_201_441m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_201_441m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_201_441m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 04:34:12 2020]
+Finished job 292.
+50 of 589 steps (8%) done
+
+[Tue Dec  1 04:34:12 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_125_140m_0.22-0.45_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-coverages.tsv
+    jobid: 695
+    wildcards: ID=TARA_125_140m_0.22-0.45_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_125_140m_0.22-0.45_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-cov.tmp > ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-cov-and-det.tmp ../mapping-files/TARA_125_140m_0.22-0.45_girus-gene-cov.tmp
+        
+[Tue Dec  1 04:34:20 2020]
+Finished job 695.
+51 of 589 steps (9%) done
+
+[Tue Dec  1 04:34:20 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_093_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_093_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 660
+    wildcards: ID=TARA_093_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_093_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_093_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_093_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_093_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_093_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_093_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_093_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_093_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:34:27 2020]
+Finished job 660.
+52 of 589 steps (9%) done
+
+[Tue Dec  1 04:34:28 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_208_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_208_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 758
+    wildcards: ID=TARA_208_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_208_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_208_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_208_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_208_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_208_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_208_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_208_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_208_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:34:37 2020]
+Finished job 758.
+53 of 589 steps (9%) done
+
+[Tue Dec  1 04:34:37 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_189_5m_0.22-3_prok.bam
+    jobid: 331
+    wildcards: ID=TARA_189_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_189_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_189_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 04:57:23 2020]
+Finished job 335.
+54 of 589 steps (9%) done
+
+[Tue Dec  1 04:57:23 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD97.bam
+    jobid: 149
+    wildcards: ID=OSD97
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD97" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD97 ${curr_run_accs}
+        
+[Tue Dec  1 04:59:12 2020]
+Finished job 149.
+55 of 589 steps (9%) done
+
+[Tue Dec  1 04:59:12 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_196_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_196_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 750
+    wildcards: ID=TARA_196_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_196_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_196_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_196_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_196_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_196_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_196_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_196_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_196_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:59:20 2020]
+Finished job 750.
+56 of 589 steps (10%) done
+
+[Tue Dec  1 04:59:20 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_132_115m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_132_115m_0.22-3_prok-gene-coverages.tsv
+    jobid: 702
+    wildcards: ID=TARA_132_115m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_132_115m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_132_115m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_132_115m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_132_115m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_132_115m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_132_115m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_132_115m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_132_115m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:59:32 2020]
+Finished job 702.
+57 of 589 steps (10%) done
+
+[Tue Dec  1 04:59:32 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_094_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_094_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 661
+    wildcards: ID=TARA_094_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_094_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_094_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_094_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_094_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_094_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_094_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_094_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_094_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 04:59:38 2020]
+Finished job 661.
+58 of 589 steps (10%) done
+
+[Tue Dec  1 04:59:38 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_009_55m_0.22-1.6_girus.bam
+    jobid: 157
+    wildcards: ID=TARA_009_55m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_009_55m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_009_55m_0.22-1.6_girus ${curr_run_accs}
+        
+[Tue Dec  1 05:22:45 2020]
+Finished job 333.
+59 of 589 steps (10%) done
+
+[Tue Dec  1 05:22:45 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD37.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD37-gene-coverages.tsv
+    jobid: 512
+    wildcards: ID=OSD37
+
+
+        pileup.sh -in ../mapping-files/OSD37.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD37-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD37-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD37-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD37-gene-cov.tmp > ../mapping-files/OSD37-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD37-gene-cov-and-det.tmp ../mapping-files/OSD37-gene-cov.tmp
+        
+[Tue Dec  1 05:22:49 2020]
+Finished job 512.
+60 of 589 steps (10%) done
+
+[Tue Dec  1 05:22:49 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_125_140m_0.1-0.22_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-coverages.tsv
+    jobid: 694
+    wildcards: ID=TARA_125_140m_0.1-0.22_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_125_140m_0.1-0.22_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-cov.tmp > ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-cov-and-det.tmp ../mapping-files/TARA_125_140m_0.1-0.22_girus-gene-cov.tmp
+        
+[Tue Dec  1 05:22:56 2020]
+Finished job 694.
+61 of 589 steps (10%) done
+
+[Tue Dec  1 05:22:56 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_201_5m_0.22-3_prok.bam
+    jobid: 339
+    wildcards: ID=TARA_201_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_201_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_201_5m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 05:24:06 2020]
+Finished job 156.
+62 of 589 steps (11%) done
+
+[Tue Dec  1 05:24:06 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_189_299m_0.22-3_prok.bam
+    jobid: 330
+    wildcards: ID=TARA_189_299m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_189_299m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_189_299m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 05:36:29 2020]
+Finished job 334.
+63 of 589 steps (11%) done
+
+[Tue Dec  1 05:36:29 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD96.bam
+    jobid: 148
+    wildcards: ID=OSD96
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD96" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD96 ${curr_run_accs}
+        
+[Tue Dec  1 05:40:07 2020]
+Finished job 148.
+64 of 589 steps (11%) done
+
+[Tue Dec  1 05:40:07 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD29.bam
+    jobid: 92
+    wildcards: ID=OSD29
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD29" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD29 ${curr_run_accs}
+        
+[Tue Dec  1 05:42:05 2020]
+Finished job 92.
+65 of 589 steps (11%) done
+
+[Tue Dec  1 05:42:05 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_209_351m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_209_351m_0.22-3_prok-gene-coverages.tsv
+    jobid: 759
+    wildcards: ID=TARA_209_351m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_209_351m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_209_351m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_209_351m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_209_351m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_209_351m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_209_351m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_209_351m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_209_351m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 05:42:31 2020]
+Finished job 759.
+66 of 589 steps (11%) done
+
+[Tue Dec  1 05:42:31 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_194_5m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_194_5m_0.22-3_prok-gene-coverages.tsv
+    jobid: 749
+    wildcards: ID=TARA_194_5m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_194_5m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_194_5m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_194_5m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_194_5m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_194_5m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_194_5m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_194_5m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_194_5m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 05:42:36 2020]
+Finished job 749.
+67 of 589 steps (11%) done
+
+[Tue Dec  1 05:42:36 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_132_550m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_132_550m_0.22-3_prok-gene-coverages.tsv
+    jobid: 703
+    wildcards: ID=TARA_132_550m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_132_550m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_132_550m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_132_550m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_132_550m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_132_550m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_132_550m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_132_550m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_132_550m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 05:43:15 2020]
+Finished job 703.
+68 of 589 steps (12%) done
+
+[Tue Dec  1 05:43:15 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD36.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD36-gene-coverages.tsv
+    jobid: 511
+    wildcards: ID=OSD36
+
+
+        pileup.sh -in ../mapping-files/OSD36.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD36-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD36-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD36-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD36-gene-cov.tmp > ../mapping-files/OSD36-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD36-gene-cov-and-det.tmp ../mapping-files/OSD36-gene-cov.tmp
+        
+[Tue Dec  1 05:43:19 2020]
+Finished job 511.
+69 of 589 steps (12%) done
+
+[Tue Dec  1 05:43:19 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_009_5m_0.22-1.6_girus.bam
+    jobid: 158
+    wildcards: ID=TARA_009_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_009_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_009_5m_0.22-1.6_girus ${curr_run_accs}
+        
+[Tue Dec  1 06:28:41 2020]
+Finished job 337.
+70 of 589 steps (12%) done
+
+[Tue Dec  1 06:28:41 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_201_36m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_201_36m_0.22-3_prok-gene-coverages.tsv
+    jobid: 751
+    wildcards: ID=TARA_201_36m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_201_36m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_201_36m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_201_36m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_201_36m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_201_36m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_201_36m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_201_36m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_201_36m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 06:28:48 2020]
+Finished job 751.
+71 of 589 steps (12%) done
+
+[Tue Dec  1 06:28:48 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_034_5m_0.22-1.6_prok.bam
+    jobid: 172
+    wildcards: ID=TARA_034_5m_0.22-1.6_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_034_5m_0.22-1.6_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_034_5m_0.22-1.6_prok ${curr_run_accs}
+        
+[Tue Dec  1 06:51:25 2020]
+Finished job 157.
+72 of 589 steps (12%) done
+
+[Tue Dec  1 06:51:25 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_189_20m_0.22-3_prok.bam
+    jobid: 329
+    wildcards: ID=TARA_189_20m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_189_20m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_189_20m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 06:52:52 2020]
+Finished job 332.
+73 of 589 steps (12%) done
+
+[Tue Dec  1 06:52:53 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD95.bam
+    jobid: 147
+    wildcards: ID=OSD95
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD95" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD95 ${curr_run_accs}
+        
+[Tue Dec  1 06:54:48 2020]
+Finished job 147.
+74 of 589 steps (13%) done
+
+[Tue Dec  1 06:54:48 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD28.bam
+    jobid: 91
+    wildcards: ID=OSD28
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD28" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD28 ${curr_run_accs}
+        
+[Tue Dec  1 06:56:25 2020]
+Finished job 91.
+75 of 589 steps (13%) done
+
+[Tue Dec  1 06:56:25 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_205_491m_0.22-3_prok.bam
+    jobid: 340
+    wildcards: ID=TARA_205_491m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_205_491m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_205_491m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 07:02:38 2020]
+Finished job 331.
+76 of 589 steps (13%) done
+
+[Tue Dec  1 07:02:39 2020]
+rule dl_454_sample_and_run_mapping:
+    input: ../mapping-files-pyro/all-combined.1.bt2, ../mapping-files-pyro/all-combined.2.bt2, ../mapping-files-pyro/all-combined.3.bt2, ../mapping-files-pyro/all-combined.rev.1.bt2, ../mapping-files-pyro/all-combined.rev.2.bt2
+    output: ../mapping-files-pyro/TARA_043_5m_0.22-1.6_girus.bam
+    jobid: 354
+    wildcards: ID=TARA_043_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_043_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-454-sample.sh ../mapping-files-pyro ../mapping-files-pyro/all-combined 4 TARA_043_5m_0.22-1.6_girus ${curr_run_accs}
+        
+[Tue Dec  1 07:04:57 2020]
+Finished job 354.
+77 of 589 steps (13%) done
+
+[Tue Dec  1 07:04:57 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_194_35m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_194_35m_0.22-3_prok-gene-coverages.tsv
+    jobid: 748
+    wildcards: ID=TARA_194_35m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_194_35m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_194_35m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_194_35m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_194_35m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_194_35m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_194_35m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_194_35m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_194_35m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 07:05:04 2020]
+Finished job 748.
+78 of 589 steps (13%) done
+
+[Tue Dec  1 07:05:04 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD151.bam
+    jobid: 47
+    wildcards: ID=OSD151
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD151" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD151 ${curr_run_accs}
+        
+[Tue Dec  1 07:05:05 2020]
+Finished job 338.
+79 of 589 steps (13%) done
+
+[Tue Dec  1 07:05:05 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_201_441m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_201_441m_0.22-3_prok-gene-coverages.tsv
+    jobid: 752
+    wildcards: ID=TARA_201_441m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_201_441m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_201_441m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_201_441m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_201_441m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_201_441m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_201_441m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_201_441m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_201_441m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 07:05:15 2020]
+Finished job 752.
+80 of 589 steps (14%) done
+
+[Tue Dec  1 07:05:16 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/UW051-33An.bam
+    jobid: 411
+    wildcards: ID=UW051-33An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^UW051-33An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^UW051-33An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 UW051-33An "${R1_link}" "${R2_link}"
+        
+[Tue Dec  1 07:05:30 2020]
+Finished job 47.
+81 of 589 steps (14%) done
+
+[Tue Dec  1 07:05:30 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD125.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD125-gene-coverages.tsv
+    jobid: 439
+    wildcards: ID=OSD125
+
+
+        pileup.sh -in ../mapping-files/OSD125.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD125-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD125-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD125-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD125-gene-cov.tmp > ../mapping-files/OSD125-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD125-gene-cov-and-det.tmp ../mapping-files/OSD125-gene-cov.tmp
+        
+[Tue Dec  1 07:05:35 2020]
+Finished job 439.
+82 of 589 steps (14%) done
+
+[Tue Dec  1 07:05:35 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_210_391m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_210_391m_0.22-3_prok-gene-coverages.tsv
+    jobid: 761
+    wildcards: ID=TARA_210_391m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_210_391m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_210_391m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_210_391m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_210_391m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_210_391m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_210_391m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_210_391m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_210_391m_0.22-3_prok-gene-cov.tmp
+        
+[Tue Dec  1 07:05:57 2020]
+Finished job 761.
+83 of 589 steps (14%) done
+
+[Tue Dec  1 07:05:57 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/OSD99.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/OSD99-gene-coverages.tsv
+    jobid: 565
+    wildcards: ID=OSD99
+
+
+        pileup.sh -in ../mapping-files/OSD99.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/OSD99-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/OSD99-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/OSD99-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/OSD99-gene-cov.tmp > ../mapping-files/OSD99-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/OSD99-gene-cov-and-det.tmp ../mapping-files/OSD99-gene-cov.tmp
+        
+[Tue Dec  1 07:06:01 2020]
+Finished job 565.
+84 of 589 steps (14%) done
+
+[Tue Dec  1 07:06:01 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_064_65m_0.22-3_prok.bam
+    jobid: 202
+    wildcards: ID=TARA_064_65m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_064_65m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_064_65m_0.22-3_prok ${curr_run_accs}
+        
+[Tue Dec  1 07:21:42 2020]
+Finished job 411.
+85 of 589 steps (14%) done
+
+[Tue Dec  1 07:21:43 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_003_5m_0.22-1.6_girus.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-coverages.tsv
+    jobid: 566
+    wildcards: ID=TARA_003_5m_0.22-1.6_girus
+
+
+        pileup.sh -in ../mapping-files/TARA_003_5m_0.22-1.6_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov.tmp > ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov-and-det.tmp ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov.tmp
+        
+[Tue Dec  1 07:21:44 2020]
+Error in rule parse_gene_level_cov_and_det:
+    jobid: 566
+    output: ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-coverages.tsv
+    shell:
+        
+        pileup.sh -in ../mapping-files/TARA_003_5m_0.22-1.6_girus.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov.tmp > ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov-and-det.tmp ../mapping-files/TARA_003_5m_0.22-1.6_girus-gene-cov.tmp
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Dec  1 07:34:32 2020]
+Finished job 172.
+86 of 589 steps (15%) done
+[Tue Dec  1 07:57:40 2020]
+Finished job 158.
+87 of 589 steps (15%) done
+[Tue Dec  1 08:26:34 2020]
+Finished job 202.
+88 of 589 steps (15%) done
+[Tue Dec  1 08:30:29 2020]
+Finished job 330.
+89 of 589 steps (15%) done
+[Tue Dec  1 08:46:01 2020]
+Finished job 329.
+90 of 589 steps (15%) done
+[Tue Dec  1 08:56:59 2020]
+Finished job 339.
+91 of 589 steps (15%) done
+[Tue Dec  1 09:13:14 2020]
+Finished job 340.
+92 of 589 steps (16%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /data2/mlee/Thaum/metagenome-dl-and-mapping-workflow/.snakemake/log/2020-12-01T000227.838064.snakemake.log

@@ -1,0 +1,12 @@
+TARA_003_5m_0.22-1.6_girus
+TARA_004_5m_0.22-1.6_girus
+TARA_006_8m_0.22-1.6_girus
+TARA_031_5m_0.22-1.6_girus
+TARA_036_5m_0.22-1.6_girus
+TARA_038_340m_0.22-1.6_girus
+TARA_038_5m_0.22-1.6_girus
+TARA_039_270m_0.22-1.6_girus
+TARA_039_5m_0.22-1.6_girus
+TARA_043_5m_0.22-1.6_girus
+TARA_046_5m_0.22-1.6_girus
+TARA_049_5m_0.22-1.6_girus

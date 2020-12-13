@@ -1,0 +1,443 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 6
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	16	dl_454_sample_and_run_mapping
+	60	dl_HK_sample_and_run_mapping
+	338	dl_illumina_sample_and_run_mapping
+	16	parse_454_gene_level_cov_and_det
+	338	parse_gene_level_cov_and_det
+	60	parse_gene_level_cov_and_det_HK_samples
+	829
+
+[Wed Dec  2 09:10:07 2020]
+rule dl_HK_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/UW048-33An.bam
+    jobid: 409
+    wildcards: ID=UW048-33An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^UW048-33An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^UW048-33An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 UW048-33An "${R1_link}" "${R2_link}"
+        
+
+[Wed Dec  2 09:10:07 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD28.bam
+    jobid: 91
+    wildcards: ID=OSD28
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD28" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD28 ${curr_run_accs}
+        
+
+[Wed Dec  2 09:10:07 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_178_5m_0.22-3_prok.bam
+    jobid: 315
+    wildcards: ID=TARA_178_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_178_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_178_5m_0.22-3_prok ${curr_run_accs}
+        
+
+[Wed Dec  2 09:10:07 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD29.bam
+    jobid: 92
+    wildcards: ID=OSD29
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD29" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD29 ${curr_run_accs}
+        
+
+[Wed Dec  2 09:10:07 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_180_30m_0.22-3_prok.bam
+    jobid: 316
+    wildcards: ID=TARA_180_30m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_180_30m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_180_30m_0.22-3_prok ${curr_run_accs}
+        
+
+[Wed Dec  2 09:10:07 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD3.bam
+    jobid: 93
+    wildcards: ID=OSD3
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD3" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD3 ${curr_run_accs}
+        
+[Wed Dec  2 09:10:43 2020]
+Finished job 93.
+1 of 829 steps (0.12%) done
+
+[Wed Dec  2 09:10:43 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD127.bam
+    jobid: 27
+    wildcards: ID=OSD127
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD127" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD127 ${curr_run_accs}
+        
+[Wed Dec  2 09:10:45 2020]
+Finished job 91.
+2 of 829 steps (0.24%) done
+
+[Wed Dec  2 09:10:45 2020]
+rule dl_HK_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/A4-07-3000m-34An.bam
+    jobid: 362
+    wildcards: ID=A4-07-3000m-34An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^A4-07-3000m-34An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^A4-07-3000m-34An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 A4-07-3000m-34An "${R1_link}" "${R2_link}"
+        
+[Wed Dec  2 09:11:01 2020]
+Finished job 92.
+3 of 829 steps (0.36%) done
+
+[Wed Dec  2 09:11:01 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_206_5m_0.22-3_prok.bam
+    jobid: 334
+    wildcards: ID=TARA_206_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_206_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_206_5m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 09:11:15 2020]
+Finished job 27.
+4 of 829 steps (0.48%) done
+
+[Wed Dec  2 09:11:16 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_076_150m_0.22-3_prok.bam
+    jobid: 222
+    wildcards: ID=TARA_076_150m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_076_150m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_076_150m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 09:51:17 2020]
+Finished job 409.
+5 of 829 steps (0.60%) done
+
+[Wed Dec  2 09:51:17 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_163_5m_0.22-3_prok.bam
+    jobid: 306
+    wildcards: ID=TARA_163_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_163_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_163_5m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 10:00:23 2020]
+Finished job 362.
+6 of 829 steps (0.72%) done
+
+[Wed Dec  2 10:00:24 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD62.bam
+    jobid: 124
+    wildcards: ID=OSD62
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD62" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD62 ${curr_run_accs}
+        
+[Wed Dec  2 10:02:36 2020]
+Finished job 124.
+7 of 829 steps (0.84%) done
+
+[Wed Dec  2 10:02:36 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD63.bam
+    jobid: 125
+    wildcards: ID=OSD63
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD63" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD63 ${curr_run_accs}
+        
+[Wed Dec  2 10:04:23 2020]
+Finished job 125.
+8 of 829 steps (0.97%) done
+
+[Wed Dec  2 10:04:23 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_168_10-100m_0.22-3_prok.bam
+    jobid: 307
+    wildcards: ID=TARA_168_10-100m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_168_10-100m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_168_10-100m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 11:26:39 2020]
+Finished job 315.
+9 of 829 steps (1%) done
+
+[Wed Dec  2 11:26:40 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_076_150m_0.45-0.8_girus.bam
+    jobid: 223
+    wildcards: ID=TARA_076_150m_0.45-0.8_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_076_150m_0.45-0.8_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_076_150m_0.45-0.8_girus ${curr_run_accs}
+        
+[Wed Dec  2 11:50:40 2020]
+Finished job 334.
+10 of 829 steps (1%) done
+
+[Wed Dec  2 11:50:40 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_208_5m_0.22-3_prok.bam
+    jobid: 335
+    wildcards: ID=TARA_208_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_208_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_208_5m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 11:52:18 2020]
+Finished job 306.
+11 of 829 steps (1%) done
+
+[Wed Dec  2 11:52:18 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD126.bam
+    jobid: 26
+    wildcards: ID=OSD126
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD126" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD126 ${curr_run_accs}
+        
+[Wed Dec  2 11:53:16 2020]
+Finished job 26.
+12 of 829 steps (1%) done
+
+[Wed Dec  2 11:53:16 2020]
+rule parse_gene_level_cov_and_det_HK_samples:
+    input: ../mapping-files-HK/UW048-33An.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files-HK/UW048-33An-gene-coverages.tsv
+    jobid: 823
+    wildcards: ID=UW048-33An
+
+
+        pileup.sh -in ../mapping-files-HK/UW048-33An.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files-HK/UW048-33An-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files-HK/UW048-33An-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files-HK/UW048-33An-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files-HK/UW048-33An-gene-cov.tmp > ../mapping-files-HK/UW048-33An-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files-HK/UW048-33An-gene-cov-and-det.tmp ../mapping-files-HK/UW048-33An-gene-cov.tmp
+        
+[Wed Dec  2 11:53:21 2020]
+Finished job 823.
+13 of 829 steps (2%) done
+
+[Wed Dec  2 11:53:22 2020]
+rule dl_HK_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/A4-07-1000m-34An.bam
+    jobid: 361
+    wildcards: ID=A4-07-1000m-34An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^A4-07-1000m-34An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^A4-07-1000m-34An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 A4-07-1000m-34An "${R1_link}" "${R2_link}"
+        
+[Wed Dec  2 11:54:36 2020]
+Finished job 307.
+14 of 829 steps (2%) done
+
+[Wed Dec  2 11:54:36 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_206_411m_0.22-3_prok.bam
+    jobid: 333
+    wildcards: ID=TARA_206_411m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_206_411m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_206_411m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 11:55:48 2020]
+Finished job 316.
+15 of 829 steps (2%) done
+
+[Wed Dec  2 11:55:48 2020]
+rule dl_HK_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/A4-07-300m-34An.bam
+    jobid: 363
+    wildcards: ID=A4-07-300m-34An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^A4-07-300m-34An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^A4-07-300m-34An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 A4-07-300m-34An "${R1_link}" "${R2_link}"
+        
+[Wed Dec  2 11:59:16 2020]
+Finished job 222.
+16 of 829 steps (2%) done
+
+[Wed Dec  2 11:59:16 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_168_40m_0.22-3_prok.bam
+    jobid: 308
+    wildcards: ID=TARA_168_40m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_168_40m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_168_40m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 12:14:37 2020]
+Finished job 363.
+17 of 829 steps (2%) done
+
+[Wed Dec  2 12:14:37 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_076_150m_0.22-0.45_girus.bam
+    jobid: 221
+    wildcards: ID=TARA_076_150m_0.22-0.45_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_076_150m_0.22-0.45_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_076_150m_0.22-0.45_girus ${curr_run_accs}
+        
+[Wed Dec  2 12:25:33 2020]
+Finished job 361.
+18 of 829 steps (2%) done
+
+[Wed Dec  2 12:25:33 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_163_499m_0.22-3_prok.bam
+    jobid: 305
+    wildcards: ID=TARA_163_499m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_163_499m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_163_499m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 12:45:03 2020]
+Finished job 223.
+19 of 829 steps (2%) done
+
+[Wed Dec  2 12:45:04 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_076_5m_0.22-0.45_girus.bam
+    jobid: 224
+    wildcards: ID=TARA_076_5m_0.22-0.45_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_076_5m_0.22-0.45_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_076_5m_0.22-0.45_girus ${curr_run_accs}
+        
+Terminating processes on user request, this might take some time.
+[Wed Dec  2 13:16:20 2020]
+[Wed Dec  2 13:16:20 2020]
+Error in rule dl_illumina_sample_and_run_mapping:
+[Wed Dec  2 13:16:20 2020]
+Error in rule dl_illumina_sample_and_run_mapping:
+    jobid: 333
+Error in rule dl_illumina_sample_and_run_mapping:
+    jobid: 221
+    output: ../mapping-files/TARA_206_411m_0.22-3_prok.bam
+    jobid: 335
+    output: ../mapping-files/TARA_076_150m_0.22-0.45_girus.bam
+    shell:
+        
+        curr_run_accs=$(grep -w -m 1 "^TARA_206_411m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_206_411m_0.22-3_prok ${curr_run_accs}
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    output: ../mapping-files/TARA_208_5m_0.22-3_prok.bam
+    shell:
+        
+        curr_run_accs=$(grep -w -m 1 "^TARA_076_150m_0.22-0.45_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_076_150m_0.22-0.45_girus ${curr_run_accs}
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+    shell:
+        
+        curr_run_accs=$(grep -w -m 1 "^TARA_208_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_208_5m_0.22-3_prok ${curr_run_accs}
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job dl_illumina_sample_and_run_mapping since they might be corrupted:
+../mapping-files/TARA_206_411m_0.22-3_prok.bam
+
+Removing output files of failed job dl_illumina_sample_and_run_mapping since they might be corrupted:
+../mapping-files/TARA_076_150m_0.22-0.45_girus.bam
+Removing output files of failed job dl_illumina_sample_and_run_mapping since they might be corrupted:
+../mapping-files/TARA_208_5m_0.22-3_prok.bam
+Cancelling snakemake on user request.

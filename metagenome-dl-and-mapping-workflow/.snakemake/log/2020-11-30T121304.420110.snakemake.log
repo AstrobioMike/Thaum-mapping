@@ -1,0 +1,214 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	25	dl_sample_and_run_mapping
+	6	dl_sample_and_run_mapping_HK_samples
+	25	parse_gene_level_cov_and_det
+	7	parse_gene_level_cov_and_det_HK_samples
+	64
+
+[Mon Nov 30 12:13:04 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_004_5m_0.22-1.6_girus.bam
+    jobid: 2
+    wildcards: ID=TARA_004_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_004_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_004_5m_0.22-1.6_girus ${curr_run_accs}
+        
+
+[Mon Nov 30 12:13:04 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_064_1000m_0.22-3_prok.bam
+    jobid: 16
+    wildcards: ID=TARA_064_1000m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_064_1000m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_064_1000m_0.22-3_prok ${curr_run_accs}
+        
+
+[Mon Nov 30 12:13:04 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/N02-0m-8Ar.bam
+    jobid: 30
+    wildcards: ID=N02-0m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^N02-0m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^N02-0m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 N02-0m-8Ar "${R1_link}" "${R2_link}"
+        
+
+[Mon Nov 30 12:13:04 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_065_850m_0.22-3_prok.bam
+    jobid: 19
+    wildcards: ID=TARA_065_850m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_065_850m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_065_850m_0.22-3_prok ${curr_run_accs}
+        
+[Mon Nov 30 12:13:21 2020]
+Finished job 2.
+1 of 64 steps (2%) done
+
+[Mon Nov 30 12:13:21 2020]
+rule dl_sample_and_run_mapping_HK_samples:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/A3-09-1000m-34An.bam
+    jobid: 28
+    wildcards: ID=A3-09-1000m-34An
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^A3-09-1000m-34An" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^A3-09-1000m-34An" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 A3-09-1000m-34An "${R1_link}" "${R2_link}"
+        
+[Mon Nov 30 12:22:46 2020]
+Finished job 28.
+2 of 64 steps (3%) done
+
+[Mon Nov 30 12:22:46 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_031_5m_0.22-1.6_girus.bam
+    jobid: 8
+    wildcards: ID=TARA_031_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_031_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_031_5m_0.22-1.6_girus ${curr_run_accs}
+        
+[Mon Nov 30 12:22:56 2020]
+Finished job 30.
+3 of 64 steps (5%) done
+
+[Mon Nov 30 12:22:56 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_078_800m_0.22-3_prok.bam
+    jobid: 22
+    wildcards: ID=TARA_078_800m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_078_800m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_078_800m_0.22-3_prok ${curr_run_accs}
+        
+[Mon Nov 30 12:23:21 2020]
+Finished job 8.
+4 of 64 steps (6%) done
+
+[Mon Nov 30 12:23:21 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_064_65m_0.22-3_prok.bam
+    jobid: 15
+    wildcards: ID=TARA_064_65m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_064_65m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_064_65m_0.22-3_prok ${curr_run_accs}
+        
+[Mon Nov 30 12:44:38 2020]
+Finished job 16.
+5 of 64 steps (8%) done
+
+[Mon Nov 30 12:44:38 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_039_5m_0.22-1.6_girus.bam
+    jobid: 9
+    wildcards: ID=TARA_039_5m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_039_5m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_039_5m_0.22-1.6_girus ${curr_run_accs}
+        
+[Mon Nov 30 12:45:37 2020]
+Finished job 9.
+6 of 64 steps (9%) done
+
+[Mon Nov 30 12:45:38 2020]
+rule dl_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_085_790m_0.22-3_prok.bam
+    jobid: 23
+    wildcards: ID=TARA_085_790m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_085_790m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_085_790m_0.22-3_prok ${curr_run_accs}
+        
+[Mon Nov 30 13:39:30 2020]
+Finished job 19.
+7 of 64 steps (11%) done
+
+[Mon Nov 30 13:39:31 2020]
+rule parse_gene_level_cov_and_det:
+    input: ../mapping-files/TARA_065_850m_0.22-3_prok.bam, ../genes-and-annotations/all-genes.fa
+    output: ../mapping-files/TARA_065_850m_0.22-3_prok-gene-coverages.tsv
+    jobid: 51
+    wildcards: ID=TARA_065_850m_0.22-3_prok
+
+
+        pileup.sh -in ../mapping-files/TARA_065_850m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_065_850m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov.tmp
+        
+[Mon Nov 30 13:39:33 2020]
+Error in rule parse_gene_level_cov_and_det:
+    jobid: 51
+    output: ../mapping-files/TARA_065_850m_0.22-3_prok-gene-coverages.tsv
+    shell:
+        
+        pileup.sh -in ../mapping-files/TARA_065_850m_0.22-3_prok.bam fastaorf=../genes-and-annotations/all-genes.fa outorf=../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov-and-det.tmp > /dev/null 2>&1
+
+        # filtering coverages based on detection
+        grep -v "#" ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov-and-det.tmp | awk -F $'	' ' BEGIN {OFS=FS} { if ( $10 <= 0.5 ) $4 = 0 } { print $1,$4 } ' > ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov.tmp
+        cat <( printf "gene_ID	coverage
+" ) ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov.tmp > ../mapping-files/TARA_065_850m_0.22-3_prok-gene-coverages.tsv
+
+          # removing intermediate files
+        rm ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov-and-det.tmp ../mapping-files/TARA_065_850m_0.22-3_prok-gene-cov.tmp
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Nov 30 13:53:32 2020]
+Finished job 15.
+8 of 64 steps (12%) done
+[Mon Nov 30 14:01:28 2020]
+Finished job 22.
+9 of 64 steps (14%) done
+[Mon Nov 30 14:03:05 2020]
+Finished job 23.
+10 of 64 steps (16%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /data2/mlee/Thaum/metagenome-dl-and-mapping-workflow/.snakemake/log/2020-11-30T121304.420110.snakemake.log

@@ -1,0 +1,19 @@
+## distinguishing those with 454 and illumina data
+
+cut -f 2 sample-and-run-accessions.tsv | tr "," "\n" > all-suspected-regular-ERRs
+
+bash check-for-platform.sh all-suspected-regular-ERRs sample-and-run-accessions.tsv
+
+grep "Illumina" platform-info.tsv | cut -f 1 | sort -u > samples-with-illumina-ERRs
+
+grep -w "454" platform-info.tsv | cut -f 1 | sort -u > samples-with-454-ERRs
+
+comm -12 samples-with-illumina-ERRs samples-with-454-ERRs > samples-with-illumina-and-454-ERRs 
+
+# if a sample only has a 454 dataset, using that
+comm -13 samples-with-illumina-ERRs samples-with-454-ERRs > unique-454-sample-IDs.txt 
+
+# if a sample had an illumina dataset, using that and not the 454 one
+mv samples-with-illumina-ERRs unique-illumina-sample-IDs.txt
+
+rm samples-with-* all-suspected-regular-ERRs

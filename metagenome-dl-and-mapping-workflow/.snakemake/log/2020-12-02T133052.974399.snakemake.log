@@ -1,0 +1,203 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	16	dl_454_sample_and_run_mapping
+	60	dl_HK_sample_and_run_mapping
+	338	dl_illumina_sample_and_run_mapping
+	16	parse_454_gene_level_cov_and_det
+	338	parse_gene_level_cov_and_det
+	60	parse_gene_level_cov_and_det_HK_samples
+	829
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_HK_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/G02-7Ar.bam
+    jobid: 379
+    wildcards: ID=G02-7Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^G02-7Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^G02-7Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 G02-7Ar "${R1_link}" "${R2_link}"
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_123_150m_0.45-0.8_girus.bam
+    jobid: 262
+    wildcards: ID=TARA_123_150m_0.45-0.8_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_123_150m_0.45-0.8_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_123_150m_0.45-0.8_girus ${curr_run_accs}
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_454_sample_and_run_mapping:
+    input: ../mapping-files-pyro/all-combined.1.bt2, ../mapping-files-pyro/all-combined.2.bt2, ../mapping-files-pyro/all-combined.3.bt2, ../mapping-files-pyro/all-combined.4.bt2, ../mapping-files-pyro/all-combined.rev.1.bt2, ../mapping-files-pyro/all-combined.rev.2.bt2
+    output: ../mapping-files-pyro/TARA_006_8m_0.22-1.6_girus.bam
+    jobid: 346
+    wildcards: ID=TARA_006_8m_0.22-1.6_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_006_8m_0.22-1.6_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-454-sample.sh ../mapping-files-pyro ../mapping-files-pyro/all-combined 4 TARA_006_8m_0.22-1.6_girus ${curr_run_accs}
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_HK_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files-HK/N02-0m-8Ar.bam
+    jobid: 388
+    wildcards: ID=N02-0m-8Ar
+
+
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^N02-0m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^N02-0m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 N02-0m-8Ar "${R1_link}" "${R2_link}"
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_145_5m_0.22-3_prok.bam
+    jobid: 291
+    wildcards: ID=TARA_145_5m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_145_5m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_145_5m_0.22-3_prok ${curr_run_accs}
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_068_5m_0.22-0.45_girus.bam
+    jobid: 207
+    wildcards: ID=TARA_068_5m_0.22-0.45_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_068_5m_0.22-0.45_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_068_5m_0.22-0.45_girus ${curr_run_accs}
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_123_5m_0.22-0.45_girus.bam
+    jobid: 263
+    wildcards: ID=TARA_123_5m_0.22-0.45_girus
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_123_5m_0.22-0.45_girus" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_123_5m_0.22-0.45_girus ${curr_run_accs}
+        
+
+[Wed Dec  2 13:30:54 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD170.bam
+    jobid: 67
+    wildcards: ID=OSD170
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD170" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD170 ${curr_run_accs}
+        
+[Wed Dec  2 13:31:10 2020]
+Finished job 346.
+1 of 829 steps (0.12%) done
+
+[Wed Dec  2 13:31:10 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/OSD25.bam
+    jobid: 89
+    wildcards: ID=OSD25
+
+
+        curr_run_accs=$(grep -w -m 1 "^OSD25" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 OSD25 ${curr_run_accs}
+        
+[Wed Dec  2 13:31:45 2020]
+Finished job 89.
+2 of 829 steps (0.24%) done
+
+[Wed Dec  2 13:31:45 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_175_199m_0.22-3_prok.bam
+    jobid: 313
+    wildcards: ID=TARA_175_199m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_175_199m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_175_199m_0.22-3_prok ${curr_run_accs}
+        
+[Wed Dec  2 13:31:49 2020]
+Finished job 67.
+3 of 829 steps (0.36%) done
+
+[Wed Dec  2 13:31:49 2020]
+rule dl_illumina_sample_and_run_mapping:
+    input: ../mapping-files/all-combined.1.bt2, ../mapping-files/all-combined.2.bt2, ../mapping-files/all-combined.3.bt2, ../mapping-files/all-combined.4.bt2, ../mapping-files/all-combined.rev.1.bt2, ../mapping-files/all-combined.rev.2.bt2
+    output: ../mapping-files/TARA_175_10-100m_0.22-3_prok.bam
+    jobid: 312
+    wildcards: ID=TARA_175_10-100m_0.22-3_prok
+
+
+        curr_run_accs=$(grep -w -m 1 "^TARA_175_10-100m_0.22-3_prok" sample-and-run-accessions.tsv | cut -f 2)
+        bash scripts/dl-and-map-sample.sh ../mapping-files ../mapping-files/all-combined 4 TARA_175_10-100m_0.22-3_prok ${curr_run_accs}
+        
+Terminating processes on user request, this might take some time.
+[Wed Dec  2 13:32:11 2020]
+Error in rule dl_HK_sample_and_run_mapping:
+    jobid: 379
+    output: ../mapping-files-HK/G02-7Ar.bam
+[Wed Dec  2 13:32:11 2020]
+    shell:
+        
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^G02-7Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^G02-7Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 G02-7Ar "${R1_link}" "${R2_link}"
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+Error in rule dl_HK_sample_and_run_mapping:
+
+    jobid: 388
+    output: ../mapping-files-HK/N02-0m-8Ar.bam
+    shell:
+        
+        # getting links to forward and reverse reads
+        forward_SRR_acc=$(grep "^N02-0m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 2)
+        reverse_SRR_acc=$(grep "^N02-0m-8Ar" HK-sample-and-run-accessions.tsv | cut -f 3)
+
+        R1_link=$(grep "^${forward_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+        R2_link=$(grep "^${reverse_SRR_acc}" HK-SRRs-and-links.tsv | cut -f 2)
+
+        bash scripts/dl-and-map-HK-sample.sh ../mapping-files-HK ../mapping-files-HK/all-combined 4 N02-0m-8Ar "${R1_link}" "${R2_link}"
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Cancelling snakemake on user request.
