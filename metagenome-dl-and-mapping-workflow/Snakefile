@@ -123,8 +123,8 @@ rule all:
         pyro_gene_covs = expand(pyro_mapping_dir + "{ID}-gene-coverages.tsv", ID = pyro_sample_ID_list),
         HK_gene_covs = expand(HK_mapping_dir + "{ID}-gene-coverages.tsv", ID = HK_sample_ID_list),
         annotations = genes_and_annotations_dir + "KO-annotations.tsv",
-        combined_gene_covs = combined_results + "Combined-gene-coverages.tsv",
-        normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages.tsv",
+        combined_gene_covs = combined_results + "Combined-gene-coverages-and-KO-annots.tsv",
+        normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages-and-KO-annots.tsv",
         MG_mapping_summary_info_tab = combined_results + "Per-sample-mapping-overview.tsv"
 
 
@@ -165,19 +165,20 @@ rule make_MG_summary_table:
         """
 
 
-rule combine_gene_covs:
-    """ generates tables of combined gene coverages """
+rule combine_gene_covs_and_annots:
+    """ generates tables of combined gene coverages with annotations """
 
     input:
-        expand(mapping_dir + "{ID}-gene-coverages.tsv", ID = sample_ID_list),
-        expand(pyro_mapping_dir + "{ID}-gene-coverages.tsv", ID = pyro_sample_ID_list),
-        expand(HK_mapping_dir + "{ID}-gene-coverages.tsv", ID = HK_sample_ID_list)
+        reg_illumina_set = expand(mapping_dir + "{ID}-gene-coverages.tsv", ID = sample_ID_list),
+        pyro_set = expand(pyro_mapping_dir + "{ID}-gene-coverages.tsv", ID = pyro_sample_ID_list),
+        HK_set = expand(HK_mapping_dir + "{ID}-gene-coverages.tsv", ID = HK_sample_ID_list),
+        annotations = genes_and_annotations_dir + "KO-annotations.tsv"
     output:
-        combined_gene_covs = combined_results + "Combined-gene-coverages.tsv",
-        normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages.tsv"
+        combined_gene_covs = combined_results + "Combined-gene-coverages-and-KO-annots.tsv",
+        normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages-and-KO-annots.tsv"
     shell:
         """
-        python scripts/combine-gene-level-coverages.py {input} -o {combined_results}Combined
+        python scripts/combine-gene-level-coverages.py {input.reg_illumina_set} {input.pyro_set} {input.HK_set} -a {input.annotations} -o {combined_results}Combined
         """
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-This script combines the individual sample gene-level coverage files into one table.
+This is an ad hoc script for the corresponding workflow. It combines the individual sample gene-level coverage files and KO annotations into one table.
 It produces 2 output files, one normalized to coverage-per-million, one not normalized.
 
 Modified from my `bit-GL-combine-KO-and-tax-tables`: https://github.com/AstrobioMike/bioinf_tools
@@ -15,12 +15,13 @@ import pandas as pd
 from math import isnan
 from numpy import NaN
 
-parser = argparse.ArgumentParser(description="This script combines the individual sample gene-level coverage files into one table. \
+parser = argparse.ArgumentParser(description="This is an ad hoc script for the corresponding workflow. It combines the individual sample gene-level coverage files and KO annotations into one table. \
                                               It produces 2 output files, one normalized to coverage-per-million, one not normalized.")
 
 required = parser.add_argument_group('required arguments')
 
 required.add_argument("input_tables", metavar="input-tables", type=str, nargs="+", help="Input gene-level coverage tables (as written, expected to end with extension '.tsv'.")
+required.add_argument("-a", "--KO-annotations-file", help="Input KO annotation table", action="store", dest="KO_tab")
 parser.add_argument("-o", "--output-prefix", help='Desired output prefix (default: "Combined")', action="store", default="Combined", dest="output_prefix")
 
 if len(sys.argv)==1:
@@ -34,15 +35,17 @@ args = parser.parse_args()
 
 def main():
 
-    check_all_inputs_exist(args.input_tables)
+    check_all_inputs_exist(args.input_tables, args.KO_tab)
 
     input_files, sample_names = setup_input_lists(args.input_tables)
 
     unnormd_combined_tab, normd_combined_tab = process_each_table(input_files, sample_names)
 
-    unnormd_combined_tab.to_csv(args.output_prefix + "-gene-coverages.tsv", index=False, sep="\t")
+    unnormd_combined_with_annots_tab, normd_combined_with_annots_tab = add_KO_annots(unnormd_combined_tab, normd_combined_tab, args.KO_tab)
 
-    normd_combined_tab.to_csv(args.output_prefix + "-CPM-normalized-gene-coverages.tsv", index=False, sep="\t")
+    unnormd_combined_with_annots_tab.to_csv(args.output_prefix + "-gene-coverages-and-KO-annots.tsv", index=False, sep="\t", na_rep = "NA")
+
+    normd_combined_with_annots_tab.to_csv(args.output_prefix + "-CPM-normalized-gene-coverages-and-KO-annots.tsv", index=False, sep="\t", na_rep = "NA")
 
 
 ################################################################################
@@ -71,7 +74,7 @@ def wprint(text):
           subsequent_indent="  ", break_on_hyphens=False))
 
 
-def check_all_inputs_exist(input_tables):
+def check_all_inputs_exist(input_tables, KO_tab):
 
     for file in input_tables:
         if not os.path.exists(file):
@@ -79,6 +82,12 @@ def check_all_inputs_exist(input_tables):
             wprint(color_text("It seems the specified input file '" + str(file) + "' can't be found.", "yellow"))
             print("\nExiting for now.\n")
             sys.exit(1)
+
+    if not os.path.exists(KO_tab):
+        print("")
+        wprint(color_text("It seems the specified input file '" + str(KO_tab) + "' can't be found.", "yellow"))
+        print("\nExiting for now.\n")
+        sys.exit(1)
 
 
 def setup_input_lists(input_tables):
@@ -124,6 +133,15 @@ def process_each_table(input_files, sample_names):
 
     return(unnormd_combined_tab, normd_combined_tab)
 
+def add_KO_annots(unnormd_combined_tab, normd_combined_tab, KO_tab):
+    """ adds KO annotations to tables """
+    
+    KO_tab = pd.read_csv(KO_tab, sep = "\t")
+
+    unnormd_combined_with_annots_tab = KO_tab.merge(unnormd_combined_tab, on = "gene_ID")
+    normd_combined_with_annots_tab = KO_tab.merge(normd_combined_tab, on = "gene_ID")
+
+    return(unnormd_combined_with_annots_tab, normd_combined_with_annots_tab)
 
 if __name__ == "__main__":
     main()
