@@ -77,9 +77,9 @@ mapping_dir = "../mapping-files/"
 HK_mapping_dir = "../mapping-files-HK/"
 pyro_mapping_dir = "../mapping-files-pyro/"
 genes_and_annotations_dir = "../genes-and-annotations/"
-combined_gene_coverages = "../combined-gene-coverages/"
+combined_results = "../combined-results/"
 
-dirs_to_create = [mapping_dir, HK_mapping_dir, pyro_mapping_dir, genes_and_annotations_dir, combined_gene_coverages]
+dirs_to_create = [mapping_dir, HK_mapping_dir, pyro_mapping_dir, genes_and_annotations_dir, combined_results]
 
 
   # number of threads or cpus use PER snakemake job started (which is determined by the -j parameter passed to the snakemake call)
@@ -123,8 +123,46 @@ rule all:
         pyro_gene_covs = expand(pyro_mapping_dir + "{ID}-gene-coverages.tsv", ID = pyro_sample_ID_list),
         HK_gene_covs = expand(HK_mapping_dir + "{ID}-gene-coverages.tsv", ID = HK_sample_ID_list),
         annotations = genes_and_annotations_dir + "KO-annotations.tsv",
-        combined_gene_covs = combined_gene_coverages + "Combined-gene-coverages.tsv",
-        normalized_combined_gene_covs = combined_gene_coverages + "Combined-CPM-normalized-gene-coverages.tsv"
+        combined_gene_covs = combined_results + "Combined-gene-coverages.tsv",
+        normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages.tsv",
+        MG_mapping_summary_info_tab = combined_results + "Per-sample-mapping-overview.tsv"
+
+
+rule make_MG_summary_table:
+    """ makes summary table per MG sample pulling info from bowtie2 mapping info files """
+
+    input:
+        expand(mapping_dir + "{ID}-mapping-info.txt", ID = sample_ID_list),
+        expand(pyro_mapping_dir + "{ID}-mapping-info.txt", ID = pyro_sample_ID_list),
+        expand(HK_mapping_dir + "{ID}-mapping-info.txt", ID = HK_sample_ID_list)
+    output:
+        MG_mapping_summary_info_tab = combined_results + "Per-sample-mapping-overview.tsv"
+    shell:
+        """
+        cat <( printf "Sample\n" ) <( grep "overall" {input} | cut -f 1 -d ":" | cut -f 3 -d "/" | sed 's/-mapping-info.txt//' ) > sample.tmp
+
+        cat <( printf "num_fragments\n") <( grep -m 1 -w "reads" {input} | cut -f 2 -d ":" | cut -f 1 -d " " ) > num_fragments.tmp
+
+        # if the file has the word "paired" in it, they were paired-end, if "unpaired" is in there, it's a single-end dataset
+        grep -m 1 -w "paired" {input} | cut -f 1 -d ":" | cut -f 3 -d "/" | sed 's/-mapping-info.txt//' > MGs-with-PE.tmp
+        for sample in $(cat MGs-with-PE.tmp); do printf "PE\n"; done > PE-label.tmp
+        paste MGs-with-PE.tmp PE-label.tmp > MGs-with-PE-labels.tmp
+
+        grep -m 1 -w "unpaired" {input} | cut -f 1 -d ":" | cut -f 3 -d "/" | sed 's/-mapping-info.txt//' > MGs-with-SE.tmp
+        for sample in $(cat MGs-with-SE.tmp); do printf "SE\n"; done > SE-label.tmp
+        paste MGs-with-SE.tmp SE-label.tmp > MGs-with-SE-labels.tmp
+
+        cat MGs-with-PE-labels.tmp MGs-with-SE-labels.tmp > MGs-with-PE-or-SE-labels.tmp
+
+        printf "PE/SE\n" > PE-SE.tmp
+        for sample in $(tail -n +2 sample.tmp); do grep -m 1 -w ${{sample}} MGs-with-PE-or-SE-labels.tmp | cut -f 2 >> PE-SE.tmp; done
+        
+        cat <( printf "perc_reads_aligned\n") <( grep "overall" {input} | cut -f 2 -d ":" | cut -f 1 -d "%" ) > perc_reads_aligned.tmp
+
+
+        paste sample.tmp num_fragments.tmp PE-SE.tmp perc_reads_aligned.tmp > {output}
+        rm sample.tmp num_fragments.tmp MGs-with-PE.tmp PE-label.tmp MGs-with-PE-labels.tmp MGs-with-SE.tmp SE-label.tmp MGs-with-SE-labels.tmp MGs-with-PE-or-SE-labels.tmp PE-SE.tmp perc_reads_aligned.tmp
+        """
 
 
 rule combine_gene_covs:
@@ -135,11 +173,11 @@ rule combine_gene_covs:
         expand(pyro_mapping_dir + "{ID}-gene-coverages.tsv", ID = pyro_sample_ID_list),
         expand(HK_mapping_dir + "{ID}-gene-coverages.tsv", ID = HK_sample_ID_list)
     output:
-        combined_gene_covs = combined_gene_coverages + "Combined-gene-coverages.tsv",
-        normalized_combined_gene_covs = combined_gene_coverages + "Combined-CPM-normalized-gene-coverages.tsv"
+        combined_gene_covs = combined_results + "Combined-gene-coverages.tsv",
+        normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages.tsv"
     shell:
         """
-        python scripts/combine-gene-level-coverages.py {input} -o {combined_gene_coverages}Combined
+        python scripts/combine-gene-level-coverages.py {input} -o {combined_results}Combined
         """
 
 
