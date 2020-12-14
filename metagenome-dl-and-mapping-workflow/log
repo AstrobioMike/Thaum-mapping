@@ -1,0 +1,6 @@
+grep "F8_1_" cov.tsv > curr-tab.tmp
+
+total_bases=$(cut -f 3 curr-tab.tmp | awk ' { sum += $1 } END { print sum } ')
+
+grep "SAMC021089_" cov.tsv > curr-tab.tmp 
+

@@ -119,9 +119,23 @@ rule all:
         reg_bam_files = expand(mapping_dir + "{ID}.bam", ID = sample_ID_list),
         pyro_bam_files = expand(pyro_mapping_dir + "{ID}.bam", ID = pyro_sample_ID_list),
         HK_bam_files = expand(HK_mapping_dir + "{ID}.bam", ID = HK_sample_ID_list),
+        combined_genome_covs = combined_results + "Combined-genome-coverages.tsv",
+        combined_genome_dets = combined_results + "Combined-genome-detections.tsv",
+        combined_genome_filt_covs = combined_results + "Combined-genome-detection-filtered-coverages.tsv",
+        norm_combined_genome_covs = combined_results + "Combined-CPM-normalized-genome-coverages.tsv",
+        norm_combined_genome_filt_covs = combined_results + "Combined-CPM-normalized-genome-detection-filtered-coverages.tsv",
         gene_covs = expand(mapping_dir + "{ID}-gene-coverages.tsv", ID = sample_ID_list),
+        genome_cov = expand(mapping_dir + "{ID}-genome-level-coverages.tsv", ID = sample_ID_list),
+        genome_det = expand(mapping_dir + "{ID}-genome-level-detections.tsv", ID = sample_ID_list),
+        filtered_genome_cov = expand(mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv", ID = sample_ID_list),
         pyro_gene_covs = expand(pyro_mapping_dir + "{ID}-gene-coverages.tsv", ID = pyro_sample_ID_list),
+        pyro_genome_cov = expand(pyro_mapping_dir + "{ID}-genome-level-coverages.tsv", ID = pyro_sample_ID_list),
+        pyro_genome_det = expand(pyro_mapping_dir + "{ID}-genome-level-detections.tsv", ID = pyro_sample_ID_list),
+        pyro_filtered_genome_cov = expand(pyro_mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv", ID = pyro_sample_ID_list),
         HK_gene_covs = expand(HK_mapping_dir + "{ID}-gene-coverages.tsv", ID = HK_sample_ID_list),
+        HK_genome_cov = expand(HK_mapping_dir + "{ID}-genome-level-coverages.tsv", ID = HK_sample_ID_list),
+        HK_genome_det = expand(HK_mapping_dir + "{ID}-genome-level-detections.tsv", ID = HK_sample_ID_list),
+        HK_filtered_genome_cov = expand(HK_mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv", ID = HK_sample_ID_list),
         annotations = genes_and_annotations_dir + "KO-annotations.tsv",
         combined_gene_covs = combined_results + "Combined-gene-coverages-and-KO-annots.tsv",
         normalized_combined_gene_covs = combined_results + "Combined-CPM-normalized-gene-coverages-and-KO-annots.tsv",
@@ -162,6 +176,34 @@ rule make_MG_summary_table:
 
         paste sample.tmp num_fragments.tmp PE-SE.tmp perc_reads_aligned.tmp > {output}
         rm sample.tmp num_fragments.tmp MGs-with-PE.tmp PE-label.tmp MGs-with-PE-labels.tmp MGs-with-SE.tmp SE-label.tmp MGs-with-SE-labels.tmp MGs-with-PE-or-SE-labels.tmp PE-SE.tmp perc_reads_aligned.tmp
+        """
+
+
+rule combine_genome_covs_and_detections:
+    """ generates tables of combined genome-level coverages and detections """
+
+    input:
+        reg_illumina_set_covs = expand(mapping_dir + "{ID}-genome-level-coverages.tsv", ID = sample_ID_list),
+        pyro_set_covs = expand(pyro_mapping_dir + "{ID}-genome-level-coverages.tsv", ID = pyro_sample_ID_list),
+        HK_set_covs = expand(HK_mapping_dir + "{ID}-genome-level-coverages.tsv", ID = HK_sample_ID_list),
+        reg_illumina_set_dets = expand(mapping_dir + "{ID}-genome-level-detections.tsv", ID = sample_ID_list),
+        pyro_set_dets = expand(pyro_mapping_dir + "{ID}-genome-level-detections.tsv", ID = pyro_sample_ID_list),
+        HK_set_dets = expand(HK_mapping_dir + "{ID}-genome-level-detections.tsv", ID = HK_sample_ID_list),
+        reg_illumina_set_filt_covs = expand(mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv", ID = sample_ID_list),
+        pyro_set_filt_covs = expand(pyro_mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv", ID = pyro_sample_ID_list),
+        HK_set_filt_covs = expand(HK_mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv", ID = HK_sample_ID_list)
+    output:
+        combined_genome_covs = combined_results + "Combined-genome-coverages.tsv",
+        combined_genome_dets = combined_results + "Combined-genome-detections.tsv",
+        combined_genome_filt_covs = combined_results + "Combined-genome-detection-filtered-coverages.tsv",
+        norm_combined_genome_covs = combined_results + "Combined-CPM-normalized-genome-coverages.tsv",
+        norm_combined_genome_filt_covs = combined_results + "Combined-CPM-normalized-genome-detection-filtered-coverages.tsv"
+    shell:
+        """
+        python scripts/combine-genome-level-cov-and-detections.py --input-cov-tables {input.reg_illumina_set_covs} {input.pyro_set_covs} {input.HK_set_covs} \
+                                                                  --input-det-tables {input.reg_illumina_set_dets} {input.pyro_set_dets} {input.HK_set_dets} \
+                                                                  --input-filtered-cov-tables {input.reg_illumina_set_filt_covs} {input.pyro_set_filt_covs} {input.HK_set_filt_covs} \
+                                                                  -o {combined_results}Combined
         """
 
 
@@ -215,27 +257,40 @@ rule run_KO_annotation:
         """
 
 
-rule parse_gene_level_cov_and_det:
+rule parse_coverage_and_detection:
     """
     This rule pulls out gene-level coverage and detection information for each sample,
     and filters the coverage information based on requiring at least 50% detection.
+
+    It also pulls out genome-level coverage and detection, producing those tables, and 
+    making one that is filtered such that if a genome's detectionis less than 50% in a sample,
+    it's coverage is set to 0.
     """
 
     input:
         bam = mapping_dir + "{ID}.bam",
-        nt = genes_and_annotations_dir + "all-genes.fa"
+        nt = genes_and_annotations_dir + "all-genes.fa",
+        ref = ref_genomes_dir + combined_fasta,
+        genomes = ref_genome_IDs
     params:
         gene_cov_and_det_tmp = mapping_dir + "{ID}-gene-cov-and-det.tmp",
-        gene_cov_tmp = mapping_dir + "{ID}-gene-cov.tmp"
+        gene_cov_tmp = mapping_dir + "{ID}-gene-cov.tmp",
+        contig_level_tmp = mapping_dir + "{ID}-contig-cov.tmp"
     output:
-        gene_covs = mapping_dir + "{ID}-gene-coverages.tsv"
+        gene_covs = mapping_dir + "{ID}-gene-coverages.tsv",
+        genome_cov = mapping_dir + "{ID}-genome-level-coverages.tsv",
+        genome_det = mapping_dir + "{ID}-genome-level-detections.tsv",
+        filtered_genome_cov = mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv"
     shell:
         """
-        pileup.sh -in {input.bam} fastaorf={input.nt} outorf={params.gene_cov_and_det_tmp} > /dev/null 2>&1
+        pileup.sh -in {input.bam} fastaorf={input.nt} outorf={params.gene_cov_and_det_tmp} ref={input.ref} out={params.contig_level_tmp} > /dev/null 2>&1
 
-        # filtering coverages based on detection
+        # filtering gene coverages based on detection
         grep -v "#" {params.gene_cov_and_det_tmp} | awk -F $'\t' ' BEGIN {{OFS=FS}} {{ if ( $10 <= 0.5 ) $4 = 0 }} {{ print $1,$4 }} ' > {params.gene_cov_tmp}
         cat <( printf "gene_ID\tcoverage\n" ) {params.gene_cov_tmp} > {output.gene_covs}
+
+        # parsing genome-level info
+        python scripts/get-genome-level-coverage.py -i {params.contig_level_tmp} -g {input.genomes} -o {mapping_dir}{wildcards.ID}
 
           # removing intermediate files
         rm {params}
@@ -246,23 +301,36 @@ rule parse_454_gene_level_cov_and_det:
     """
     This rule pulls out gene-level coverage and detection information for each 454 sample,
     and filters the coverage information based on requiring at least 50% detection.
+
+    It also pulls out genome-level coverage and detection, producing those tables, and 
+    making one that is filtered such that if a genome's detectionis less than 50% in a sample,
+    it's coverage is set to 0.
     """
 
     input:
         bam = pyro_mapping_dir + "{ID}.bam",
-        nt = genes_and_annotations_dir + "all-genes.fa"
+        nt = genes_and_annotations_dir + "all-genes.fa",
+        ref = ref_genomes_dir + combined_fasta,
+        genomes = ref_genome_IDs
     params:
         gene_cov_and_det_tmp = pyro_mapping_dir + "{ID}-gene-cov-and-det.tmp",
-        gene_cov_tmp = pyro_mapping_dir + "{ID}-gene-cov.tmp"
+        gene_cov_tmp = pyro_mapping_dir + "{ID}-gene-cov.tmp",
+        contig_level_tmp = pyro_mapping_dir + "{ID}-contig-cov.tmp"
     output:
-        gene_covs = pyro_mapping_dir + "{ID}-gene-coverages.tsv"
+        gene_covs = pyro_mapping_dir + "{ID}-gene-coverages.tsv",
+        genome_cov = pyro_mapping_dir + "{ID}-genome-level-coverages.tsv",
+        genome_det = pyro_mapping_dir + "{ID}-genome-level-detections.tsv",
+        filtered_genome_cov = pyro_mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv"
     shell:
         """
-        pileup.sh -in {input.bam} fastaorf={input.nt} outorf={params.gene_cov_and_det_tmp} > /dev/null 2>&1
+        pileup.sh -in {input.bam} fastaorf={input.nt} outorf={params.gene_cov_and_det_tmp} ref={input.ref} out={params.contig_level_tmp} > /dev/null 2>&1
 
-        # filtering coverages based on detection
+        # filtering gene coverages based on detection
         grep -v "#" {params.gene_cov_and_det_tmp} | awk -F $'\t' ' BEGIN {{OFS=FS}} {{ if ( $10 <= 0.5 ) $4 = 0 }} {{ print $1,$4 }} ' > {params.gene_cov_tmp}
         cat <( printf "gene_ID\tcoverage\n" ) {params.gene_cov_tmp} > {output.gene_covs}
+
+        # parsing genome-level info
+        python scripts/get-genome-level-coverage.py -i {params.contig_level_tmp} -g {input.genomes} -o {pyro_mapping_dir}{wildcards.ID}
 
           # removing intermediate files
         rm {params}
@@ -271,25 +339,38 @@ rule parse_454_gene_level_cov_and_det:
 
 rule parse_gene_level_cov_and_det_HK_samples:
     """
-    This rule pulls out gene-level coverage and detection information for each sample,
+    This rule pulls out gene-level coverage and detection information for each HK sample,
     and filters the coverage information based on requiring at least 50% detection.
+
+    It also pulls out genome-level coverage and detection, producing those tables, and 
+    making one that is filtered such that if a genome's detectionis less than 50% in a sample,
+    it's coverage is set to 0.
     """
 
     input:
         bam = HK_mapping_dir + "{ID}.bam",
-        nt = genes_and_annotations_dir + "all-genes.fa"
+        nt = genes_and_annotations_dir + "all-genes.fa",
+        ref = ref_genomes_dir + combined_fasta,
+        genomes = ref_genome_IDs
     params:
         gene_cov_and_det_tmp = HK_mapping_dir + "{ID}-gene-cov-and-det.tmp",
-        gene_cov_tmp = HK_mapping_dir + "{ID}-gene-cov.tmp"
+        gene_cov_tmp = HK_mapping_dir + "{ID}-gene-cov.tmp",
+        contig_level_tmp = HK_mapping_dir + "{ID}-contig-cov.tmp"
     output:
-        gene_covs = HK_mapping_dir + "{ID}-gene-coverages.tsv"
+        gene_covs = HK_mapping_dir + "{ID}-gene-coverages.tsv",
+        genome_cov = HK_mapping_dir + "{ID}-genome-level-coverages.tsv",
+        genome_det = HK_mapping_dir + "{ID}-genome-level-detections.tsv",
+        filtered_genome_cov = HK_mapping_dir + "{ID}-genome-level-detection-filtered-coverages.tsv"
     shell:
         """
-        pileup.sh -in {input.bam} fastaorf={input.nt} outorf={params.gene_cov_and_det_tmp} > /dev/null 2>&1
+        pileup.sh -in {input.bam} fastaorf={input.nt} outorf={params.gene_cov_and_det_tmp} ref={input.ref} out={params.contig_level_tmp} > /dev/null 2>&1
 
-        # filtering coverages based on detection
+        # filtering gene coverages based on detection
         grep -v "#" {params.gene_cov_and_det_tmp} | awk -F $'\t' ' BEGIN {{OFS=FS}} {{ if ( $10 <= 0.5 ) $4 = 0 }} {{ print $1,$4 }} ' > {params.gene_cov_tmp}
         cat <( printf "gene_ID\tcoverage\n" ) {params.gene_cov_tmp} > {output.gene_covs}
+
+        # parsing genome-level info
+        python scripts/get-genome-level-coverage.py -i {params.contig_level_tmp} -g {input.genomes} -o {HK_mapping_dir}{wildcards.ID}
 
           # removing intermediate files
         rm {params}
