@@ -40,3 +40,7 @@ Reference genome seqs and download scripts/logs are in 'ref-genomes'.
 
 
 Workflow and code are in 'metagenome-dl-and-mapping-workflow'.
+
+
+"reference-genomes.xlsx" holds the reference genome spreadsheet we worked with to identify our ref genome targets
+"MG-samples.xlsx" holds the metagenomes spreadsheet we worked with to identify our sample targets
